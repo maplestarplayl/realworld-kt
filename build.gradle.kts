@@ -31,6 +31,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+    implementation ("com.auth0:java-jwt:4.4.0")
+    implementation("org.postgresql:postgresql:42.6.1")
     //implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk17")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
