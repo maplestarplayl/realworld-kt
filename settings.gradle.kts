@@ -1,1 +1,1 @@
-rootProject.name = "kt-shop-backend"
+rootProject.name = "kt-realworld-backend"
