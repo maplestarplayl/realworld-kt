@@ -19,6 +19,9 @@ import org.springframework.stereotype.Component
 @Slf4j
 class OperateLogAspect {
 
+    companion object{
+        var log: Logger = LoggerFactory.getLogger(this::class.java)
+    }
     @Pointcut("@annotation(com.example.ktworldbackend.annotation.OperateLog)")
     fun operateLogPointcut() {
     }
@@ -26,18 +29,18 @@ class OperateLogAspect {
     @Before("operateLogPointcut() && @annotation(operateLog)")
     fun before(operateLog: OperateLog) {
         HttpInterceptor.userHolder.get()?.let {
-            logger().info("user info is :{}  operation start", it.username)
+            log.info("user info is :{}  operation start", it.username)
         }
-        logger().info("operateLog:{}  operation start", operateLog.value)
+        log.info("operateLog:{}  operation start", operateLog.value)
     }
     @AfterReturning("operateLogPointcut() && @annotation(operateLog)", returning = "result")
     fun after( operateLog: OperateLog, result: Any? ) {
-        logger().info("operateLog:{}  operation end", operateLog.value)
-        logger().info("result is :{}", result)
+        log.info("operateLog:{}  operation end", operateLog.value)
+        log.info("result is :{}", result)
     }
     @AfterThrowing("operateLogPointcut() && @annotation(operateLog)", throwing = "e")
     fun afterThrowing(joinPoint: JoinPoint, operateLog: OperateLog, e: Throwable) {
-        logger().error("operateLog:{}  operation error msg is {}", operateLog.value, e.message)
+        log.error("operateLog:{}  operation error msg is {}", operateLog.value, e.message)
     }
 
 
