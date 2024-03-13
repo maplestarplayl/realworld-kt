@@ -35,7 +35,7 @@ dependencies {
     implementation("org.postgresql:postgresql:42.6.1")
     //implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk17")
     compileOnly("org.projectlombok:lombok")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    //developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
