@@ -2,16 +2,18 @@ package com.example.ktworldbackend.service
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.example.ktworldbackend.aspect.logger
 import com.example.ktworldbackend.entity.Profile
 import com.example.ktworldbackend.entity.User
 import com.example.ktworldbackend.repository.ProfileRepository
 import com.example.ktworldbackend.repository.UserRepository
 import com.example.ktworldbackend.util.JsonUtil
 import org.springframework.stereotype.Service
+const val secret: String = "lifeng"
 
 @Service
-class UserService(val userRepository: UserRepository, val profileRepository: ProfileRepository) {
-    val secret: String = "lifeng"
+class UserService(val userRepository: UserRepository , val profileRepository: ProfileRepository) {
+
     fun login(email: String, password: String): String {
         var user = userRepository.findUserByEmail(email) ?: return "user not found"
         var profile = profileRepository.findProfileByUserId(user.id!!)
@@ -31,7 +33,10 @@ class UserService(val userRepository: UserRepository, val profileRepository: Pro
     }
 
     fun getCurrentUser(user:Profile): Profile {
-        return profileRepository.findProfileByUserId(user.userId) ?: throw RuntimeException("profile not found")
+        return profileRepository.findProfileByUserId(user.userId!!) ?: throw RuntimeException("profile not found")
+    }
+    fun updateCurrentUser(user:Profile, profile: Profile): Profile {
+        return profileRepository.save(user.copy(username = profile.username?:user.username, bio = profile.bio?:user.bio, image = profile.image?:user.image))
     }
 
 }
