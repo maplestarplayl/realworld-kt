@@ -10,4 +10,5 @@ data class Article(
     val id:Int,
     var title:String,
     var description:String,
-    var content:String)
+    var content:String,
+    var authorId:Int)

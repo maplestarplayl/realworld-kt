@@ -1,5 +1,6 @@
 package com.example.ktworldbackend.entity
 
+import com.example.ktworldbackend.enums.Role
 import jakarta.persistence.*
 
 @Entity
@@ -9,5 +10,7 @@ data class User(
     @SequenceGenerator(name = "user_id_generator", sequenceName = "user_id_seq", allocationSize = 1)
     val id: Int?,
     val email: String,
-    val password: String) {
+    val password: String,
+    @Enumerated(EnumType.ORDINAL)
+    val role: Role) {
 }
