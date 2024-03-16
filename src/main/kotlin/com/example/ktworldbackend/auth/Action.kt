@@ -1,4 +1,5 @@
 package com.example.ktworldbackend.auth
 
-class Action {
+enum class Action {
+    CREATE, READ, UPDATE, DELETE,DEFAULT
 }

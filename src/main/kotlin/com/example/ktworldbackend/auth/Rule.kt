@@ -1,12 +1,27 @@
 package com.example.ktworldbackend.auth
 
-class Rule(var policy: Policy? = null) {
+import com.example.ktworldbackend.enums.Role
+
+object Rule {
+    var  policies: MutableList<Policy> = emptyList<Policy>().toMutableList()
+    fun addPolicy(vararg policy: Policy) {
+        policies += mutableListOf(*policy)
+    }
 }
+interface RuleScope {
+    fun policy(block: Policy.() -> Unit): Unit
 
 
-fun Rule.rule(block: Rule.() -> Unit) : Unit {
-    this.apply(block)
+
 }
-fun Rule.createPolicy(block: Policy.() -> Unit) : Policy {
-    return Policy(null,null,null,null).apply(block)
+inline fun rule(content: RuleScope.() -> Unit){
+    RuleScopeInstance.content()
 }
+internal object RuleScopeInstance: RuleScope{
+    override fun policy(block: Policy.() -> Unit): Unit {
+        val policy = Policy(null, null, null, null)
+        policy.block()
+        Rule.addPolicy(policy)
+    }
+}
+

@@ -11,5 +11,6 @@ class InterceptorConfig  (val interceptor: HttpInterceptor): WebMvcConfigurer{
     override fun addInterceptors(registry: InterceptorRegistry){
         registry.addInterceptor(interceptor).addPathPatterns("/**")
             .excludePathPatterns("/users/**")
+            .excludePathPatterns("/articles/{articleId}")
     }
 }

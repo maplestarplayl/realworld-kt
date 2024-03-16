@@ -1,4 +1,5 @@
 package com.example.ktworldbackend.auth
 
-class Module {
+enum class Module {
+    ARTICLE,COMMENT,TAG,PROFILE, DEFAULT
 }
