@@ -2,9 +2,12 @@ package com.example.ktworldbackend.service
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.example.ktworldbackend.aspect.OperateLogAspect.Companion.log
 import com.example.ktworldbackend.aspect.logger
+import com.example.ktworldbackend.auth.*
 import com.example.ktworldbackend.entity.Profile
 import com.example.ktworldbackend.entity.User
+import com.example.ktworldbackend.enums.Role
 import com.example.ktworldbackend.repository.ProfileRepository
 import com.example.ktworldbackend.repository.UserRepository
 import com.example.ktworldbackend.util.JsonUtil
@@ -26,14 +29,17 @@ class UserService(val userRepository: UserRepository , val profileRepository: Pr
     }
 
     fun register(email: String, password: String, username:String): String {
-        var user= User(null,email, password)
+        var user= User(null,email, password, Role.USER)
         userRepository.save(user)
         profileRepository.save(Profile(null,username, user.id!!,null,null))
         return "ok"
     }
 
-    fun getCurrentUser(user:Profile): Profile {
+    fun getCurrentProfile(user:Profile): Profile {
         return profileRepository.findProfileByUserId(user.userId!!) ?: throw RuntimeException("profile not found")
+    }
+    fun getCurrentUser(user:Profile): User {
+        return userRepository.findUserById(user.userId!!) ?: throw RuntimeException("user not found")
     }
     fun updateCurrentUser(user:Profile, profile: Profile): Profile {
         return profileRepository.save(user.copy(username = profile.username?:user.username, bio = profile.bio?:user.bio, image = profile.image?:user.image))
