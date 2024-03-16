@@ -6,6 +6,9 @@ plugins {
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.spring") version "1.9.22"
     kotlin("plugin.jpa") version "1.9.22"
+    id("io.gitlab.arturbosch.detekt") version "1.23.5"
+    kotlin("plugin.lombok") version "1.9.23"
+    id("io.freefair.lombok") version "8.1.0"
 }
 
 group = "com.example"
@@ -20,7 +23,12 @@ configurations {
         extendsFrom(configurations.annotationProcessor.get())
     }
 }
-
+detekt{
+    version = "1.23.5"
+    config.setFrom(files("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    ignoreFailures = true
+}
 repositories {
     mavenCentral()
 }
