@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.controller.ConfigureUserRouting
 import com.example.controller.configureLogInRouting
 import com.example.plugins.*
 import io.ktor.server.application.*
@@ -19,6 +20,7 @@ fun Application.module() {
     configureMonitoring()
     configureSerialization()
     configureRouting()
+    ConfigureUserRouting()
     configureStatusPages()
     configureDataTransformation()
 }
