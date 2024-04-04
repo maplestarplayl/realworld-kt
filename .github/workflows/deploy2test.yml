@@ -31,6 +31,8 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
           cache: 'gradle'
+      - name: Install rsync
+        run: sudo apt-get update && sudo apt-get install -y rsync
       - name: Gradle build
         run: gradle build -x test
       - name: Deploy
