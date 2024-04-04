@@ -37,25 +37,5 @@ fun selectAllArticles(): List<Article> {
     return DB.database.from(Articles).select().mapRowToResult()
 }
 fun updateArticle(article: Article) {
-//    DB.database.update(Articles) {
-//        setIfValueNotNull(it.authorId, article.authorId)
-//        setIfValueNotNull(it.title, article.title)
-//        setIfValueNotNull(it.body, article.body)
-//        setIfValueNotNull(it.description, article.description)
-//        where {
-//            it.id eq article.id
-//        }
-//
-//    }
     DB.database.updateWithObject(Articles,article)
 }
-
-//val block :(UpdateStatementBuilder.(Articles) -> kotlin.Unit) =  {
-//    setIfValueNotNull(it.authorId, article.authorId)
-//    setIfValueNotNull(it.title, article.title)
-//    setIfValueNotNull(it.body, article.body)
-//    setIfValueNotNull(it.description, article.description)
-//    where {
-//        it.id eq article.id
-//    }
-//}
