@@ -32,7 +32,7 @@ jobs:
           java-version: '17'
           cache: 'gradle'
       - name: Gradle build
-        run: ./gradlew build -x test
+        run: gradle build -x test
       - name: Deploy
         uses: easingthemes/ssh-deploy@main
         with:
