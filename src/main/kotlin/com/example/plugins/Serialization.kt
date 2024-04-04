@@ -1,6 +1,6 @@
 package com.example.plugins
 
-import com.example.GsonContentConverter
+import com.example.util.GsonContentConverter
 import io.ktor.http.*
 import io.ktor.serialization.gson.*
 import io.ktor.server.application.*

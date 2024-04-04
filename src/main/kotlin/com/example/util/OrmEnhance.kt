@@ -1,8 +1,8 @@
 package com.example.util
 
-import org.ktorm.dsl.AssignmentsBuilder
-import org.ktorm.dsl.eq
-import org.ktorm.dsl.update
+import com.example.entity.Article
+import com.example.entity.Articles
+import org.ktorm.dsl.*
 import org.ktorm.schema.Column
 import org.ktorm.schema.ColumnDeclaring
 import kotlin.reflect.full.declaredMemberProperties
@@ -12,7 +12,11 @@ fun < C: Any> AssignmentsBuilder.setIfValueNotNull(column: Column<C>, value: C?)
         set(column, value)
     }
 }
-
+fun Query.mapRowToResult(): List<Article> {
+    return this.map { row ->
+        Articles.createEntity(row)
+    }
+}
 public fun <T : org.ktorm.schema.BaseTable<*>> org.ktorm.database.Database.updateWithObject(table: T, data:Any): kotlin.Int {
     return update(table){
         val fields = table::class.declaredMemberProperties

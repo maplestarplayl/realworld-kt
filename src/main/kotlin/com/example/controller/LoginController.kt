@@ -3,7 +3,7 @@ package com.example.controller
 import com.example.entity.Article
 import com.example.enum.Exception
 import com.example.exception.LocalRuntimeException
-import com.example.respondWithResponse
+import com.example.util.respondWithResponse
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*

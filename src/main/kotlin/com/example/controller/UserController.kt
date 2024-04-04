@@ -6,8 +6,8 @@ import com.example.entity.selectArticleById
 import com.example.entity.updateArticle
 import com.example.enum.Exception
 import com.example.exception.LocalRuntimeException
-import com.example.interceptNotSpecified
-import com.example.respondWithResponse
+import com.example.util.interceptNotSpecified
+import com.example.util.respondWithResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -18,7 +18,8 @@ fun addArticle(): String {
 }
 fun Application.ConfigureUserRouting(){
     routing {
-        interceptNotSpecified(mapOf("/articles" to setOf<HttpMethod>(HttpMethod.Get,HttpMethod.Put)))
+
+        interceptNotSpecified(mapOf("/articles" to setOf(HttpMethod.Get,HttpMethod.Put),"/articles/{id}" to setOf(HttpMethod.Get,HttpMethod.Put)))
         route("/articles"){
             get("{id}") {
                 val result = selectArticleById(call.parameters["id"]?.toInt() ?: throw LocalRuntimeException(Exception.PARAM_MISSED))

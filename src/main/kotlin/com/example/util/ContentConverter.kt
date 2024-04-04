@@ -1,4 +1,4 @@
-package com.example
+package com.example.util
 
 import com.google.gson.Gson
 import io.ktor.http.*

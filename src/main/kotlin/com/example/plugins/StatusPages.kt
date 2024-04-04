@@ -1,7 +1,7 @@
 package com.example.plugins
 
 import com.example.exception.LocalRuntimeException
-import com.example.logger
+import com.example.util.logger
 import com.example.response.HttpResponse
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*

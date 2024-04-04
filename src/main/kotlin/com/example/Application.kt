@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.config.DB
 import com.example.controller.ConfigureUserRouting
 import com.example.controller.configureLogInRouting
 import com.example.plugins.*
@@ -19,7 +20,6 @@ fun Application.module() {
     configureSecurity()
     configureMonitoring()
     configureSerialization()
-    configureRouting()
     ConfigureUserRouting()
     configureStatusPages()
     configureDataTransformation()
