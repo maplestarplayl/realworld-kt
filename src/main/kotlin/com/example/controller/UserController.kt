@@ -1,45 +1,47 @@
 package com.example.controller
 
+import com.example.entity.Article
+import com.example.entity.selectAllArticles
+import com.example.entity.selectArticleById
+import com.example.entity.updateArticle
+import com.example.enum.Exception
 import com.example.exception.LocalRuntimeException
+import com.example.interceptNotSpecified
+import com.example.respondWithResponse
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun addArticle(): String {
-    throw LocalRuntimeException(101,"Not implemented")
-    println("dsadkljdsjda")
+    throw LocalRuntimeException(Exception.NOT_IMPLEMENTED)
 }
 fun Application.ConfigureUserRouting(){
     routing {
-        intercept(ApplicationCallPipeline.Monitoring) {
-            println("Received callllllllllllllllllllllllllllllllllll")
-            val request = call.request
-            println("Request: $request")
-            if (request.uri.contains("/login") || request.uri.contains("/articles")) {
-                proceed()
-            }else{
-                if (request.headers["Authorization"] == null) call.respondText { "Token required" } else proceed()
-            }
-        }
-        post("/user/addArticle"){
-            val result = addArticle()
-            call.respondText(result)
-        }
+        interceptNotSpecified(mapOf("/articles" to setOf<HttpMethod>(HttpMethod.Get,HttpMethod.Put)))
         route("/articles"){
+            get("{id}") {
+                val result = selectArticleById(call.parameters["id"]?.toInt() ?: throw LocalRuntimeException(Exception.PARAM_MISSED))
+                call.respondWithResponse(result)
+            }
             get {
-                call.respondText("Get all articles")
+                val result = selectAllArticles()
+                call.respondWithResponse(result)
             }
             //创建一个新的文章
             post {
-                call.respondText("Add new article")
+                call.respondWithResponse("Add new article")
             }
             //更新一个文章
             put {
-                call.respondText("Update article")
+                val article = call.receiveNullable<Article>()
+                //val art = Json.decodeFromJsonElement(Article.serializer(), Json.parseToJsonElement(article))
+                //print(art)
+                updateArticle(article!!)
+                call.respondWithResponse("Update article")
             }
             delete {
-                call.respondText("Delete article")
+                call.respondWithResponse("Delete article")
             }
         }
     }
